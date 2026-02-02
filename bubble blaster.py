@@ -10,8 +10,8 @@ window = Tk()
 window.title("BUBBLE BLASTER")
 c = Canvas(window, width=WIDTH, height=HEIGHT, bg="darkblue")
 c.pack()
-ship_id = c.create_polygon(5, 5, 5, 25, 30, 15, fill="red")
-ship_id2 = c.create_oval(0, 0, 30, 30, outline="red")
+ship_id = c.create_polygon(5, 5, 5, 25, 30, 15, fill="yellow")
+ship_id2 = c.create_oval(0, 1, 30, 30, outline="red")
 SHIP_R = 15
 MID_X = WIDTH / 2
 MID_Y = HEIGHT / 2
@@ -85,17 +85,41 @@ def collision():
             points += (bub_r[bub] + bub_speed[bub])
             del_bubble(bub)
     return points
+c.create_text(50, 30, text="TIME", fill="white")
+c.create_text(150, 30, text="SCORE", fill="white")
+time_text = c.create_text(50, 50, fill="white" )
+score_text = c.create_text(150, 50, fill="white")
+def show_score(score):
+    c.itemconfig(score_text, text=str(score))
+def show_time(time_left):
+    c.itemconfig(time_text, text=str(time_left))
 
 
-score = 0
-# MAIN GAME LOOP
+
 BUB_CHANCE = 10
-while True:
+TIME_LIMIT = 30
+BONOUS_SCORE = 1000
+score = 0
+bonous = 0
+# MAIN GAME LOOP
+
+end = time() + TIME_LIMIT
+while time() < end:
     if randint(1, BUB_CHANCE) == 1:
         create_bubble()
     move_bubbles()
     clean_up_bubs()
     score += collision()
-    print(score)
+    if (int(score / BONOUS_SCORE)) > bonous:
+        bonous += 1
+        end += TIME_LIMIT
+    show_score(score)
+    show_time(int(end - time()))
+
+    # print(score)
     window.update()
     sleep(0.01)
+
+
+c.create_text(MID_X, MID_Y, text="GaMe OvEr", fill="white",font = ("Helvetica", 30))
+window.mainloop()
