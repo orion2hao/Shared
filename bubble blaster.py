@@ -11,7 +11,7 @@ window.title("BUBBLE BLASTER")
 c = Canvas(window, width=WIDTH, height=HEIGHT, bg="darkblue")
 c.pack()
 ship_id = c.create_polygon(5, 5, 5, 25, 30, 15, fill="yellow")
-ship_id2 = c.create_oval(0, 1, 30, 30, outline="red")
+ship_id2 = c.create_oval(-10, 0, 40, 30, outline="red")
 SHIP_R = 15
 MID_X = WIDTH / 2
 MID_Y = HEIGHT / 2
@@ -97,7 +97,7 @@ def show_time(time_left):
 
 
 BUB_CHANCE = 10
-TIME_LIMIT = 30
+TIME_LIMIT = 50
 BONOUS_SCORE = 1000
 score = 0
 bonous = 0
